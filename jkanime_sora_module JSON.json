@@ -1,18 +1,18 @@
 {
-    "sourceName": "JkAnime",
-    "iconUrl": "https://raw.githubusercontent.com/tu-usuario/tu-repo/main/assets/jkanime_logo.png",
-    "author": {
-        "name": "TuNombre",
-        "icon": "https://pbs.twimg.com/profile_images/tu-perfil.jpg"
-    },
-    "version": "1.0.0",
-    "type": "anime",
-    "language": "Spanish (SUB)",
-    "streamType": "MP4",
-    "quality": "1080p",
-    "baseUrl": "https://jkanime.net/",
-    "searchBaseUrl": "https://jkanime.net/search?q=%s",
-    "scriptUrl": "https://raw.githubusercontent.com/tu-usuario/tu-repo/main/jkanime_sora_module.js",
-    "asyncJS": true,
-    "streamAsyncJS": true
+   "sourceName": "JkAnime",
+   "iconUrl": "https://raw.githubusercontent.com/djlalosad-afk/M-dulo-jkanime-3/main/assets/jkanime_logo.png",
+   "author": {
+       "name": "djlalosad-afk",
+       "icon": "https://pbs.twimg.com/profile_images/tu-perfil.jpg"
+   },
+   "version": "1.0.0",
+   "type": "anime",
+   "language": "Spanish (SUB)",
+   "streamType": "MP4",
+   "quality": "1080p",
+   "baseUrl": "https://jkanime.net/",
+   "searchBaseUrl": "https://jkanime.net/search?q=%s",
+   "scriptUrl": "https://raw.githubusercontent.com/djlalosad-afk/M-dulo-jkanime-3/main/jkanime_sora_module%20JS.js",
+   "asyncJS": true,
+   "streamAsyncJS": true
 }
