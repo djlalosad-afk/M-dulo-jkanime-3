@@ -2,18 +2,24 @@
 const baseUrl = "https://jkanime.net/";
 
 async function searchAnime(query) {
-    const res = await fetch(`${baseUrl}?s=${encodeURIComponent(query)}`);
+    const res = await fetch(`https://jkanime.net/?s=${encodeURIComponent(query)}`);
     const text = await res.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(text, "text/html");
     const results = [];
 
+    // En JkAnime, cada resultado está dentro de .bsx .card
     doc.querySelectorAll(".bsx .card").forEach(item => {
-        results.push({
-            title: item.querySelector(".card-body h5 a")?.textContent.trim(),
-            url: item.querySelector(".card-body h5 a")?.href,
-            image: item.querySelector("img")?.src
-        });
+        const titleElem = item.querySelector(".card-body h5 a");
+        const imgElem = item.querySelector("img");
+
+        if(titleElem && imgElem) {
+            results.push({
+                title: titleElem.textContent.trim(),
+                url: titleElem.href,
+                image: imgElem.src
+            });
+        }
     });
 
     return results;
