@@ -1,11 +1,13 @@
 /**
  * Módulo Sora para JkAnime
- * Extrae anime, episodios, imágenes y búsqueda
+ * Autor: djlalosad-afk
+ * Función: buscar anime, obtener detalles y stream
  */
 
 const baseUrl = "https://jkanime.net";
 
-async function searchAnime(query) {
+// Función de búsqueda
+async function search(query) {
     const url = `${baseUrl}/?s=${encodeURIComponent(query)}`;
     const res = await fetch(url);
     const html = await res.text();
@@ -27,7 +29,8 @@ async function searchAnime(query) {
     return results;
 }
 
-async function getAnimeDetails(animeUrl) {
+// Función de detalles del anime
+async function details(animeUrl) {
     const res = await fetch(animeUrl);
     const html = await res.text();
     const parser = new DOMParser();
@@ -48,13 +51,13 @@ async function getAnimeDetails(animeUrl) {
     return { description, episodes, image };
 }
 
-async function getStream(episodeUrl) {
+// Función para obtener el stream de un episodio
+async function stream(episodeUrl) {
     const res = await fetch(episodeUrl);
     const html = await res.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
 
-    // JkAnime usa un iframe o video embed
     const videoSrc = doc.querySelector("iframe")?.src || "";
 
     return videoSrc;
