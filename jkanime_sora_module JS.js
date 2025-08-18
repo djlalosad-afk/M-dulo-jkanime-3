@@ -1,15 +1,14 @@
 /**
- * Módulo Sora para JkAnime
+ * Módulo JkAnime para Sora
  * Autor: djlalosad-afk
- * Función: buscar anime, obtener detalles y stream
+ * Basado en selectores del código fuente oficial
  */
 
 const baseUrl = "https://jkanime.net";
-const listUrl = "https://jkanime.net/animes/";
 
-// Función de búsqueda
+// 🔍 Buscar anime
 async function search(query) {
-    const res = await fetch(listUrl);
+    const res = await fetch(`${baseUrl}/buscar/${encodeURIComponent(query)}`);
     const html = await res.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
@@ -19,19 +18,17 @@ async function search(query) {
         const titleElem = item.querySelector("h5 a");
         const imgElem = item.querySelector(".anime__item__pic");
 
-        if (titleElem.textContent.toLowerCase().includes(query.toLowerCase())) {
-            results.push({
-                title: titleElem.textContent.trim(),
-                url: titleElem.href,
-                image: imgElem.dataset.setbg
-            });
-        }
+        results.push({
+            title: titleElem?.textContent.trim(),
+            url: titleElem?.href,
+            image: imgElem?.dataset.setbg
+        });
     });
 
     return results;
 }
 
-// Función de detalles del anime
+// 📄 Detalles del anime
 async function details(animeUrl) {
     const res = await fetch(animeUrl);
     const html = await res.text();
@@ -53,7 +50,7 @@ async function details(animeUrl) {
     return { description, episodes, image };
 }
 
-// Función para obtener el stream de un episodio
+// ▶️ Obtener link de stream
 async function stream(episodeUrl) {
     const res = await fetch(episodeUrl);
     const html = await res.text();
