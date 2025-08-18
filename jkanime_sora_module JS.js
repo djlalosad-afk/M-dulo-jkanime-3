@@ -1,14 +1,13 @@
 /**
  * Módulo JkAnime para Sora
  * Autor: djlalosad-afk
- * Basado en selectores del código fuente oficial
  */
 
 const baseUrl = "https://jkanime.net";
 
 // 🔍 Buscar anime
 async function search(query) {
-    const res = await fetch(`${baseUrl}/buscar/${encodeURIComponent(query)}`);
+    const res = await fetch(`${baseUrl}/buscar/${encodeURIComponent(query)}/`);
     const html = await res.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
@@ -18,11 +17,13 @@ async function search(query) {
         const titleElem = item.querySelector("h5 a");
         const imgElem = item.querySelector(".anime__item__pic");
 
-        results.push({
-            title: titleElem?.textContent.trim(),
-            url: titleElem?.href,
-            image: imgElem?.dataset.setbg
-        });
+        if (titleElem) {
+            results.push({
+                title: titleElem.textContent.trim(),
+                url: titleElem.href,
+                image: imgElem?.dataset.setbg || ""
+            });
+        }
     });
 
     return results;
