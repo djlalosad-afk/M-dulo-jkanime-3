@@ -1,61 +1,61 @@
-// jkanime_sora_module.js
-const baseUrl = "https://jkanime.net/";
+/**
+ * Módulo Sora para JkAnime
+ * Extrae anime, episodios, imágenes y búsqueda
+ */
+
+const baseUrl = "https://jkanime.net";
 
 async function searchAnime(query) {
-    const res = await fetch(`https://jkanime.net/?s=${encodeURIComponent(query)}`);
-    const text = await res.text();
+    const url = `${baseUrl}/?s=${encodeURIComponent(query)}`;
+    const res = await fetch(url);
+    const html = await res.text();
     const parser = new DOMParser();
-    const doc = parser.parseFromString(text, "text/html");
+    const doc = parser.parseFromString(html, "text/html");
+
     const results = [];
+    doc.querySelectorAll("div.anime__item").forEach(item => {
+        const titleElem = item.querySelector("h5 a");
+        const imgElem = item.querySelector(".anime__item__pic");
 
-    // En JkAnime, cada resultado está dentro de .bsx .card
-    doc.querySelectorAll(".bsx .card").forEach(item => {
-        const titleElem = item.querySelector(".card-body h5 a");
-        const imgElem = item.querySelector("img");
-
-        if(titleElem && imgElem) {
-            results.push({
-                title: titleElem.textContent.trim(),
-                url: titleElem.href,
-                image: imgElem.src
-            });
-        }
+        results.push({
+            title: titleElem.textContent.trim(),
+            url: titleElem.href,
+            image: imgElem.dataset.setbg
+        });
     });
 
     return results;
 }
 
-async function getAnimeInfo(url) {
-    const res = await fetch(url);
-    const text = await res.text();
+async function getAnimeDetails(animeUrl) {
+    const res = await fetch(animeUrl);
+    const html = await res.text();
     const parser = new DOMParser();
-    const doc = parser.parseFromString(text, "text/html");
+    const doc = parser.parseFromString(html, "text/html");
 
-    const title = doc.querySelector(".infox h1")?.textContent.trim();
-    const image = doc.querySelector(".infox img")?.src;
-    const description = doc.querySelector(".descripcion")?.textContent.trim();
-
+    const description = doc.querySelector("div.anime__details__text p")?.textContent.trim() || "";
     const episodes = [];
-    doc.querySelectorAll(".episodios li a").forEach(ep => {
+
+    doc.querySelectorAll("div.episode__item a").forEach(ep => {
         episodes.push({
             title: ep.textContent.trim(),
             url: ep.href
         });
     });
 
-    return { title, image, description, episodes };
+    const image = doc.querySelector("div.anime__poster img")?.src || "";
+
+    return { description, episodes, image };
 }
 
-async function getEpisodeStream(url) {
-    const res = await fetch(url);
-    const text = await res.text();
+async function getStream(episodeUrl) {
+    const res = await fetch(episodeUrl);
+    const html = await res.text();
     const parser = new DOMParser();
-    const doc = parser.parseFromString(text, "text/html");
+    const doc = parser.parseFromString(html, "text/html");
 
-    const videoSrc = doc.querySelector("video source")?.src || doc.querySelector("iframe")?.src;
+    // JkAnime usa un iframe o video embed
+    const videoSrc = doc.querySelector("iframe")?.src || "";
 
-    return [{ url: videoSrc, quality: "1080p" }];
+    return videoSrc;
 }
-
-// Export functions for Sora
-export { searchAnime, getAnimeInfo, getEpisodeStream };
