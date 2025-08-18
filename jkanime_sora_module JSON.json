@@ -11,7 +11,7 @@
    "quality": "1080p",
    "baseUrl": "https://jkanime.net/",
    "searchBaseUrl": "https://jkanime.net/buscar/%s/",
-   "scriptUrl": "https://raw.githubusercontent.com/djlalosad-afk/M-dulo-jkanime-3/main/jkanime.js",
+   "scriptUrl": "https://raw.githubusercontent.com/djlalosad-afk/M-dulo-jkanime-3/refs/heads/main/jkanime_sora_module%20JS.js",
    "asyncJS": true,
    "streamAsyncJS": true
 }
