@@ -5,11 +5,11 @@
  */
 
 const baseUrl = "https://jkanime.net";
+const listUrl = "https://jkanime.net/animes/";
 
 // Función de búsqueda
 async function search(query) {
-    const url = `${baseUrl}/?s=${encodeURIComponent(query)}`;
-    const res = await fetch(url);
+    const res = await fetch(listUrl);
     const html = await res.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
@@ -19,11 +19,13 @@ async function search(query) {
         const titleElem = item.querySelector("h5 a");
         const imgElem = item.querySelector(".anime__item__pic");
 
-        results.push({
-            title: titleElem.textContent.trim(),
-            url: titleElem.href,
-            image: imgElem.dataset.setbg
-        });
+        if (titleElem.textContent.toLowerCase().includes(query.toLowerCase())) {
+            results.push({
+                title: titleElem.textContent.trim(),
+                url: titleElem.href,
+                image: imgElem.dataset.setbg
+            });
+        }
     });
 
     return results;
