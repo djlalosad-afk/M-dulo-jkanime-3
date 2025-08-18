@@ -1,18 +1,17 @@
 {
-  "sourceName": "JKAnime",
-  "iconUrl": "https://jkanime.net/wp-content/uploads/2023/04/logo.png",
-  "author": {
-    "name": "djlalosad-afk",
-    "icon": "https://pbs.twimg.com/profile_images/1899600825929924608/OZY0LWuJ_400x400.jpg"
-  },
-  "version": "1.0.0",
-  "type": "anime",
-  "language": "Spanish (SUB)",
-  "streamType": "MP4",
-  "quality": "1080p",
-  "baseUrl": "https://jkanime.net/",
-  "searchBaseUrl": "https://jkanime.net/?s=%s",
-  "scriptUrl": "https://raw.githubusercontent.com/djlalosad-afk/M-dulo-jkanime-3/main/jkanime_sora_module%20JS.js",
-  "asyncJS": true,
-  "streamAsyncJS": true
+   "sourceName": "JKAnime",
+   "iconUrl": "https://jkanime.net/favicon.ico",
+   "author": {
+       "name": "djlalosad-afk"
+   },
+   "version": "1.0.0",
+   "type": "anime",
+   "language": "Spanish (SUB)",
+   "streamType": "MP4",
+   "quality": "1080p",
+   "baseUrl": "https://jkanime.net/",
+   "searchBaseUrl": "https://jkanime.net/buscar/%s/",
+   "scriptUrl": "https://raw.githubusercontent.com/djlalosad-afk/M-dulo-jkanime-3/main/jkanime.js",
+   "asyncJS": true,
+   "streamAsyncJS": true
 }
